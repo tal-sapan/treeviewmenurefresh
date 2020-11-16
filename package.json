@@ -1,0 +1,85 @@
+{
+	"name": "treeviewmenurefresh",
+	"displayName": "treeviewmenurefresh",
+	"description": "Change custom tree view menu item visibility and enablement according to context",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.51.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"views": {
+			"explorer": [
+				{
+				  "id": "testView",
+				  "name": "Test View"
+				}
+			  ]
+		},
+		"menus": {
+			"view/title": [
+				{
+					"command": "treeviewmenurefresh.firstCommand",
+					"group": "navigation@0",
+					"when": "view == testView && treeviewmenurefresh.enabledCommand == first"
+				  },
+				  {
+					"command": "treeviewmenurefresh.secondCommand",
+					"group": "navigation@1",
+					"when": "view == testView && treeviewmenurefresh.enabledCommand == second"
+				  }
+			],
+			"commandPalette": [
+				{
+					"command": "treeviewmenurefresh.firstCommand",
+					"when": "false"
+				  },
+				  {
+					"command": "treeviewmenurefresh.secondCommand",
+					"when": "false"
+				  }
+			]
+		},
+		"commands": [
+			{
+				"command": "treeviewmenurefresh.firstCommand",
+				"title": "First Command",
+				"enablement": "treeviewmenurefresh.enabledCommand == first",
+				"icon": "$(zoom-in)"
+			},
+			{
+				"command": "treeviewmenurefresh.secondCommand",
+				"title": "Second Command",
+				"enablement": "treeviewmenurefresh.enabledCommand == second",
+				"icon": "$(zap)"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint src --ext ts",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.51.0",
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.2",
+		"@types/node": "^13.11.0",
+		"eslint": "^6.8.0",
+		"@typescript-eslint/parser": "^2.30.0",
+		"@typescript-eslint/eslint-plugin": "^2.30.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.1.2",
+		"typescript": "^3.8.3",
+		"vscode-test": "^1.3.0"
+	}
+}
